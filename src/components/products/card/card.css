@@ -1,0 +1,14 @@
+.card {
+    margin-bottom: 15px;
+}
+
+.hrColor {
+    color: yellow;
+}
+
+.title {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
