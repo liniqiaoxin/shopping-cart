@@ -1,5 +1,5 @@
 import React from 'react'
-import Cards from './card/index.js'
+import Cards from './card.js'
 import { connect } from 'dva'
 import './index.css'
 // import Card from '../cart/index'

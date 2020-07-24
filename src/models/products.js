@@ -28,54 +28,20 @@ export default {
     },
     *selectSize({ payload }, { select, put }) {
       const stateArr = yield select(state => state);
+      console.log("------fffff-===", stateArr)
       const { resData } = stateArr.products
       const data = resData
-      // console.log('------------state.resData', data)
       const { checkedSizes } = payload;
-      // const selectSizes = checkedSizes
-      // console.log('------------size', checkedSizes)
       let checkedSizesList = []
-      // let sizeLists = []
+   
       if (checkedSizes) {
-        // selectSizes.push(checkedSizes);
-        // console.log('------------selectSizes', selectSizes)
         data.forEach(item => {
-
-
-          // for (var i = 0; i < item.availableSizes.length; i++) {
-            // for (var j = 0; j < checkedSizes.length; j++) {
               if (item.availableSizes.indexOf(checkedSizes)!==-1) {
-                // console.log('------------arr1[i]', item.availableSizes[i])
                 checkedSizesList.push(item)
               }
-              // console.log('------------productSize', item.availableSizes.length)
-            // }
-
-            // console.log('------------size.length', size.length)
-
-          // }
         
-          // for (var i = 0; i < item.availableSizes.length; i++) {
-          //   for (var j = 0; j < checkedSizes.length; j++) {
-          //     if (item.availableSizes[i] === checkedSizes[j]) {
-          //       // console.log('------------arr1[i]', item.availableSizes[i])
-          //       newList.push(item)
-          //     }
-          //     // console.log('------------productSize', item.availableSizes.length)
-          //   }
-
-          //   // console.log('------------size.length', size.length)
-
-          // }
-
-          // if (item.availableSizes.indexOf(size) !== -1) {
-          //   // console.log("筛筛筛筛")
-          //   newList.push(item)
-          // }
         })
       }
-      // console.log('------------productSize', item.availableSizes)
-      console.log('------------checkedSizes', checkedSizesList)
 
       yield put({
         type: "SelectSize",

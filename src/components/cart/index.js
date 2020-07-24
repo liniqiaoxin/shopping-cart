@@ -1,170 +1,110 @@
 import React from 'react';
-// import { connect } from 'dva'
+import { connect } from 'dva'
 
-import { Drawer, Button, Empty } from 'antd';
+import { Drawer, Button, Empty, Card, Row, Col } from 'antd';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import './index.css'
 import {
-    ShoppingCartOutlined
+  ShoppingCartOutlined
 } from '@ant-design/icons';
 
 
 class Cart extends React.Component {
-    state = { visible: false };
+  state = { visible: false };
+  componentDidMount() {
+    console.log("存了没", window.localStorage, this.props.cart.cartData)
+    const { dispatch } = this.props
+    dispatch({
+      type: 'cart/getStorage',
 
-    showDrawer = () => {
-        this.setState({
-            visible: true,
-        });
-    };
+    })
+  }
 
-    onClose = () => {
-        this.setState({
-            visible: false,
-        });
-    };
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
 
 
-    render() {
-        const { placement, visible } = this.state;
-        return (
-            <>
-                <Button type="primary" onClick={this.showDrawer}  size={"large"} icon={<ShoppingCartOutlined />}>
-                  
-                    Your cart
+  render() {
+    const { placement, visible } = this.state;
+    const { cart } = this.props;
+
+    // console.log('-----cart', cart.cartData)
+    // // console.log('-----sunPrice', products.resData)
+    return (
+      <>
+        <Button type="primary" onClick={this.showDrawer} size={"large"} icon={<ShoppingCartOutlined />}>
+
+          Your cart
                 </Button>
-                <Drawer
-                    title="Your cart"
-                    placement="right"
-                    onClose={this.onClose}
-                    visible={visible}
-                    key={placement}
-                    width={720}
-                >
-                    <Empty />
-                </Drawer>
-            </>
-        );
-    }
+        <Drawer
+          title="Your cart"
+          placement="right"
+          onClose={this.onClose}
+          visible={visible}
+          key={placement}
+          width={720}
+        >
+
+
+          {
+            cart.cartData.length !== 0 ?
+              cart.cartData.map(item => {
+                return (
+
+                  <Card key={item.id + item.size} >
+
+                    <Row>
+                      <Col span={6}>
+                        <img alt='' src={require(`../../assets/images/${item.sku}_1.jpg`)} className="img" />
+                      </Col>
+                      <Col span={10}>
+                        <div className="clo2">
+                          <h4>{item.title}</h4>
+                          <p> {item.size}  {item.style} </p>
+                        </div>
+                      </Col>
+                      <Col span={6}>
+                        <div className="numbtn">
+                          <Button type="link" icon={<MinusOutlined />} />
+
+                          <div style={{alignItems: 'center'}}> {item.num} </div>
+
+                          <Button type="link" icon={<PlusOutlined />} />
+                        </div>
+                      </Col>
+                      <Col span={2}>
+                        {/* <div className="col4"> */}
+                          <h4 style={{marginTop: 5, color: 'red'}}>{item.currencyFormat}{item.price}</h4>
+                        {/* </div> */}
+                      </Col>
+                    </Row>
+
+
+
+                  </Card>
+
+
+                )
+              }) : <Empty />
+
+          }
+        </Drawer>
+      </>
+    );
+  }
 }
 
 
-export default Cart;
 
-
-
-// import React, {Component} from 'react';
-// import { connect } from 'dva';
-// import { Modal, InputNumber, Checkbox, icon } from 'antd';
-// import styles from './index.css';
-
-// class Cart extends Component {
-
-// //   constructor(props){
-// //     super(props);
-
-// //     this.state = {
-// //       counts: props.product.counts,
-// //       checked: props.product.checked === undefined ? false : props.product.checked
-// //     }
-// //   }
-
-// //   isSelected = (id) => {
-// //     this.setState((state) => ({
-// //       checked: !state.checked
-// //     }));
-// //     this.props.selectProduct(id);
-// //     this.props.calTotal();
-// //   }
-
-// //   dealWithMoney = (price) => {
-// //     return '$' + (price.toFixed(2));
-// //   }
-
-// //   showConfirm = () => {
-// //     const {product} = this.props;
-// //     Modal.confirm({
-// //       title: 'Do you want to delete this product?',
-// //       onOk: () => {
-// //         this.props.removeProduct(product.id);
-// //         this.props.calTotal();
-// //       },
-// //       onCancel: () => {
-// //         this.props.updateProduct(product.id, 1);
-// //         this.setState({
-// //           counts: 1
-// //         });
-// //       },
-// //     });
-// //   }
-
-// //   onCountsChange = (value) => {
-// //     if(!value && value !== 0){
-// //       value = 1;
-// //     }
-// //     const {product} = this.props;
-// //     if(value === 0){
-// //       this.showConfirm();
-// //       return;
-// //     }
-// //     this.props.updateProduct(product.id, value);
-// //     this.setState({
-// //       counts: value
-// //     });
-// //     this.props.calTotal();
-// //   }
-
-// //   remove = () => {
-// //     const {product} = this.props;
-// //     Modal.confirm({
-// //       title: 'Do you want to delete this product?',
-// //       onOk: () => {
-// //         this.props.removeProduct(product.id);
-// //         this.props.calTotal();
-// //       },
-// //       onCancel: () => {
-
-// //       }
-// //     });
-// //   }
-
-//   render(){
-//     // const {product} = this.props;
-//     // const {counts, checked} = this.state;
-
-//     return (
-//       <div className={styles.container}>
-//         {/* <h4 className={styles.title}><span>{product.title}</span><p className={styles.operation}><span>{this.dealWithMoney(product.price)}</span><icon type="close" onClick={() => this.remove()} className={styles.icon}/></p></h4>
-//         <div className={styles.content}>
-//           <div className={styles.check}>
-//             <Checkbox onClick={() => this.isSelected(product.id)} checked={checked} />
-//           </div>
-//           <div className={`${styles['item-box']} ${styles.image}`}>
-//             <img src={product.smallImage} style={{width: '50px', height: '60px', cursor: 'pointer'}} alt=""/>
-//           </div>
-//           <div className={`${styles['item-box']} ${styles.info}`}>{product.style}</div>
-//           <div className={`${styles['item-box']} ${styles.amount}`}>
-//             <InputNumber style={{width: '50px'}} size="small" min={0} max={50} onChange={this.onCountsChange} value={counts}/>
-//           </div>
-//           <div className={`${styles['item-box']} ${styles.sum}`}><strong className={styles.strong}>{this.dealWithMoney(counts * product.price)}</strong></div>
-//         </div> */}
-//       </div>
-//     )
-//   }
-// };
-
-// const mapDispatchToProps = (dispatch)=>{
-// //   return {
-// //     updateProduct(id, counts){
-// //       dispatch({ type: 'carts/updateCart', payload: {id, counts}});
-// //     },
-// //     removeProduct(id){
-// //       dispatch({ type: 'carts/removeCart', payload: {id}});
-// //     },
-// //     selectProduct(id){
-// //       dispatch({ type: 'carts/isSelectCart', payload: {id}});
-// //     }
-// //   }
-// };
-
-// export default connect(null, mapDispatchToProps)(Cart);
+const mapStateToProps = state => state
+export default connect(mapStateToProps)(Cart);

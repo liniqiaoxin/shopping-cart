@@ -1,3 +1,33 @@
 /* .cartBtn {
     font-size: 24px;
 } */
+.img {
+    height: 70px;
+}
+.car {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+    
+}
+
+.numbtn {
+    /* width: 24%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* text-align: center; */
+    align-items: center;
+}
+
+ .col3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+
+
+.col4 {
+    float: right;
+} 

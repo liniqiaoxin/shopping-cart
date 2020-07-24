@@ -1,11 +1,24 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Card, Button, Popover, List } from 'antd';
-import './card.css'
+import './card/card.css'
 // const { Meta } = Card;
 
 class Cards extends React.Component {
- 
+  addToCart = (currentItem, currentSize) => {
+    const { dispatch } = this.props;
+    // console.log(size)
+    dispatch({
+      type: 'cart/addToCart',
+      payload: {
+        currentItem,
+        currentSize
+      }
+    })
+    dispatch({
+      type: 'cart/setStorage',
+      })
+  }
   render() {
     const { data } = this.props
     // console.log('----', data)
@@ -14,7 +27,7 @@ class Cards extends React.Component {
         <Card
           hoverable
           style={{ width: 240 }}
-          cover={<img alt='' src={require(`../../../assets/images/${data.sku}_1.jpg`)} />}
+          cover={<img alt='' src={require(`../../assets/images/${data.sku}_1.jpg`)} />}
         >
           <div className="title">
             <h4>{data.title}</h4>
@@ -32,10 +45,10 @@ class Cards extends React.Component {
               <List
                 size="large"
                 dataSource={data.availableSizes}
-                renderItem={_item => 
-                <List.Item>
-                  <Button type="link" onClick={() => this.addToCart(data.id, _item)} block>{_item}</Button>
-                </List.Item>}
+                renderItem={item =>
+                  <List.Item>
+                    <Button type="link" key={data.id+item} onClick={() => this.addToCart(data, item)} block>{item}</Button>
+                  </List.Item>}
               />
             }
           >
@@ -51,6 +64,14 @@ class Cards extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+ 
+  return {
+    // products: state.data.products,
+    cartData: state.cart.cartData
+  }
+}
+// const mapStateToProps = state => state
 
-const mapStateToProps = state => state
 export default connect(mapStateToProps)(Cards);
+
