@@ -28,7 +28,7 @@ export default {
     },
     *selectSize({ payload }, { select, put }) {
       const stateArr = yield select(state => state);
-      console.log("------fffff-===", stateArr)
+      // console.log("------fffff-===", stateArr)
       const { resData } = stateArr.products
       const data = resData
       const { checkedSizes } = payload;

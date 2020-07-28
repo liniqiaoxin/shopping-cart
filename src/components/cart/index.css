@@ -2,7 +2,7 @@
     font-size: 24px;
 } */
 .img {
-    height: 70px;
+    height: 110px;
 }
 .car {
     display: flex;
@@ -26,6 +26,12 @@
     justify-content: space-between
 }
 
+.foot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* padding: 15px; */
+}
 
 
 .col4 {
