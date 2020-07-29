@@ -15,9 +15,8 @@ class ProductList extends React.Component {
 
   render() {
     const { products } = this.props;
-    const productList = (products.sortData.length === 0 ? products.resData : products.sortData).map((item) =>
-    // const productList = products.resData.map(item => {
-      <Cards data={item} key={item.id} />);
+    const productList = (products.sortData.length === 0 ? products.resData : products.sortData).map(
+      (item) =><Cards data={item} key={item.id} />);
     return (
 
       <div>
