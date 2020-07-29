@@ -138,7 +138,6 @@ class Cart extends React.Component {
 
       </div>
     );
-    // // console.log('-----sunPrice', products.resData)
     return (
       <>
         <Badge count={cart.numProduct}>
@@ -152,7 +151,6 @@ class Cart extends React.Component {
           placement="right"
           onClose={this.onClose}
           visible={visible}
-          // key={placement}
           width={520}
           footer={footer}
           footerStyle={{ background: '#fff1f0', padding: '20px' }}
@@ -161,7 +159,6 @@ class Cart extends React.Component {
           {
             cart.cartData.length !== 0
               ? cart.cartData.map((item) => (
-                // <Spin spinning={this.state.loading} delay={50}>
                 <Card key={item.id + item.size}>
 
                   <Row>
@@ -185,15 +182,11 @@ class Cart extends React.Component {
                       </div>
                     </Col>
                     <Col span={3}>
-                      {/* <div className="col4"> */}
                       <h4 style={{ marginTop: 5, color: 'red' }}>{item.currencyFormat}{item.productPrice ? item.productPrice.toFixed(2) : item.price.toFixed(2)}</h4>
 
-                      {/* </div> */}
                     </Col>
                   </Row>
-
                 </Card>
-                // </Spin>
 
               )) : <Empty />
 
